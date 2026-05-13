@@ -1,0 +1,5 @@
+node_modules
+.env
+krishiAI
+__pycache__
+*.pyc   
