@@ -1,5 +1,5 @@
 node_modules
 .env
-krishiAI
+krishiai_env
 __pycache__
 *.pyc   
