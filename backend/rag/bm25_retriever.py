@@ -1,6 +1,6 @@
 from rank_bm25 import BM25Okapi
 
-from chunker import semantic_chunks
+from rag.chunker import semantic_chunks
 
 # =========================================
 # PREPARE DOCUMENTS

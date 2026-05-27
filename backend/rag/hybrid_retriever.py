@@ -1,6 +1,6 @@
-from retriever import retrieve_chunks # type: ignore
+from rag.retriever import retrieve_chunks # type: ignore
 
-from bm25_retriever import bm25_search
+from rag.bm25_retriever import bm25_search
 
 # =========================================
 # HYBRID RETRIEVAL

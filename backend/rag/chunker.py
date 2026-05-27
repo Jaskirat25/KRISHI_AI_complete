@@ -1,5 +1,5 @@
 import re
-from ingest import all_pages
+from rag.ingest import all_pages
 
 # =========================================
 # STORE CHUNKS

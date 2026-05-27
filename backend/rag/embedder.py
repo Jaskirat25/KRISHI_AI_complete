@@ -1,5 +1,5 @@
 from sentence_transformers import SentenceTransformer # type: ignore
-from chunker import semantic_chunks
+from rag.chunker import semantic_chunks
 
 # =========================================
 # LOAD EMBEDDING MODEL
