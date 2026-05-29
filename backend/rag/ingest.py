@@ -1,6 +1,6 @@
 from pypdf import PdfReader  # type: ignore
 
-PDF_PATH = "rag/data/crop_disease.pdf"
+PDF_PATH = "rag/data/Crop_Disease.pdf"
 
 reader = PdfReader(PDF_PATH)
 
