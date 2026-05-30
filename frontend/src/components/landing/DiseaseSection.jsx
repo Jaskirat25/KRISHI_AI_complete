@@ -2,35 +2,35 @@ const DiseaseSection = () => {
 
   const plants = [
     {
-      emoji: "🍅",
-      name: "Tomato",
+      emoji: "🌾",
+      name: "Wheat",
       diseases: [
-        "Early Blight",
-        "Late Blight",
-        "Leaf Mold",
-        "Mosaic Virus",
+        "Loose Smut",
+        "Septoria",
+        "Brown Rust",
+        "Yellow Rust",
       ],
     },
 
     {
-      emoji: "🥔",
-      name: "Potato",
+      emoji: "🍚",
+      name: "Rice",
       diseases: [
-        "Early Blight",
-        "Late Blight",
-        "Black Scurf",
-        "Common Scab",
+        "Blast",
+        "Bacterical Blight",
+        "Brown Spot",
+        "Tungro",
       ],
     },
 
     {
-      emoji: "🌽",
-      name: "Corn",
+      emoji: "🎋",
+      name: "Sugarcane",
       diseases: [
-        "Leaf Blight",
-        "Common Rust",
-        "Gray Leaf Spot",
-        "Smut",
+        "RedRot",
+        "Rust",
+        "Mosaic",
+        "Yellow",
       ],
     },
   ];
