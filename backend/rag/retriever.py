@@ -1,4 +1,3 @@
-from sentence_transformers import SentenceTransformer
 from rag.pinecone_client import index
 import os
 
@@ -36,6 +35,12 @@ def get_embedding_model():
         raise Exception(
             "Local embeddings are disabled."
         )
+
+    # =====================================
+    # IMPORT ONLY WHEN NEEDED
+    # =====================================
+
+    from sentence_transformers import SentenceTransformer
 
     # =====================================
     # LOAD MODEL
