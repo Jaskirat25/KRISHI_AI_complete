@@ -1,14 +1,52 @@
 from sentence_transformers import SentenceTransformer
-
 from rag.pinecone_client import index
+import os
 
 # =========================================
-# LOAD EMBEDDING MODEL
+# GLOBAL MODEL VARIABLE
 # =========================================
 
-embedding_model = SentenceTransformer(
-    "sentence-transformers/all-MiniLM-L6-v2"
-)
+embedding_model = None
+
+# =========================================
+# LOAD MODEL ONLY WHEN NEEDED
+# =========================================
+
+def get_embedding_model():
+
+    global embedding_model
+
+    # =====================================
+    # RETURN IF ALREADY LOADED
+    # =====================================
+
+    if embedding_model is not None:
+        return embedding_model
+
+    # =====================================
+    # CHECK ENV VARIABLE
+    # =====================================
+
+    ENABLE_LOCAL_EMBEDDINGS = os.getenv(
+        "ENABLE_LOCAL_EMBEDDINGS",
+        "true"
+    ).lower() == "true"
+
+    if not ENABLE_LOCAL_EMBEDDINGS:
+        raise Exception(
+            "Local embeddings are disabled."
+        )
+
+    # =====================================
+    # LOAD MODEL
+    # =====================================
+
+    embedding_model = SentenceTransformer(
+        "sentence-transformers/all-MiniLM-L6-v2"
+    )
+
+    return embedding_model
+
 
 # =========================================
 # VECTOR RETRIEVAL
@@ -17,10 +55,16 @@ embedding_model = SentenceTransformer(
 def retrieve_chunks(query, top_k=3):
 
     # =====================================
+    # LOAD MODEL ONLY WHEN REQUIRED
+    # =====================================
+
+    model = get_embedding_model()
+
+    # =====================================
     # EMBED USER QUERY
     # =====================================
 
-    query_embedding = embedding_model.encode(
+    query_embedding = model.encode(
         query,
         normalize_embeddings=True
     ).tolist()
