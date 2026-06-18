@@ -1,18 +1,28 @@
 import os
-import pickle
-import tensorflow as tf
+os.environ["TF_USE_LEGACY_KERAS"] = "1"
+import numpy as np
+import joblib
+from tensorflow import keras
+from config import get_model_path
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_DIR = get_model_path()
+MODEL_PATH = MODEL_DIR / "plant_disease_model.h5"
+ENCODER_PATH = MODEL_DIR / "label_encoder.pkl"
 
-MODEL_PATH = os.path.join(BASE_DIR, "plant_disease_model.h5")
-ENCODER_PATH = os.path.join(BASE_DIR, "label_encoder.pkl")
+missing_files = [path for path in (MODEL_PATH, ENCODER_PATH) if not path.exists()]
+if missing_files:
+    missing = ", ".join(str(path) for path in missing_files)
+    raise FileNotFoundError(
+        f"Missing model artifact(s): {missing}. "
+        "Place plant_disease_model.h5 and label_encoder.pkl in MODEL_DIR."
+    )
 
-model = None
-le = None
+model = keras.models.load_model(MODEL_PATH)
+le = joblib.load(ENCODER_PATH)
 
-if os.path.exists(MODEL_PATH):
-    model = tf.keras.models.load_model(MODEL_PATH)
-
-if os.path.exists(ENCODER_PATH):
-    with open(ENCODER_PATH, "rb") as f:
-        le = pickle.load(f)
+def predict(img_array):
+    predictions = model.predict(img_array)
+    class_idx = np.argmax(predictions[0])
+    label = le.inverse_transform([class_idx])[0]
+    confidence = float(predictions[0][class_idx])
+    return label, confidence
