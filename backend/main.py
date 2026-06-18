@@ -2,8 +2,12 @@ import os
 # Force legacy Keras 2 engine for tensorflow compatibility
 os.environ["TF_USE_LEGACY_KERAS"] = "1"
 
+import os
+os.environ["TF_USE_LEGACY_KERAS"] = "1"
+
 import uvicorn
-from server import app
+from backend.server import app
+
 
 @app.get("/")
 async def root():

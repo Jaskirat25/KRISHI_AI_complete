@@ -7,9 +7,9 @@ from fastapi.middleware.gzip import GZipMiddleware
 from starlette.middleware.base import BaseHTTPMiddleware
 import logging
 
-from routes.text_route import router as text_router
-from routes.image_route import router as image_router
-from routes.voice_route import router as voice_router
+from .routes.text_route import router as text_router
+from .routes.image_route import router as image_router
+from .routes.voice_route import router as voice_router
 from config import settings
 
 # Configure logger
