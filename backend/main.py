@@ -6,7 +6,7 @@ import os
 os.environ["TF_USE_LEGACY_KERAS"] = "1"
 
 import uvicorn
-from backend.server import app
+from server import app
 
 
 @app.get("/")
