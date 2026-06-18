@@ -1,27 +1,18 @@
 import os
+import google.generativeai as genai
 
-embedding_model = None
+# Configure Gemini API key from environment
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
 
-def get_embedding_model():
-    global embedding_model
-
-    if embedding_model is not None:
-        return embedding_model
-
-    ENABLE_LOCAL_EMBEDDINGS = os.getenv(
-        "ENABLE_LOCAL_EMBEDDINGS", "false"
-    ).lower() == "true"
-
-    if not ENABLE_LOCAL_EMBEDDINGS:
-        raise Exception(
-            "Local embeddings are disabled on this server."
-        )
-
-    from sentence_transformers import SentenceTransformer
-
-    embedding_model = SentenceTransformer(
-        "sentence-transformers/all-MiniLM-L6-v2"
+def embed_text(text: str) -> list[float]:
+    """Generate a 768‑dimensional embedding for *text* using Gemini.
+    Returns a list of floats.
+    """
+    response = genai.embed_content(
+        model="text-embedding-004",
+        content=text,
+        task_type="retrieval_document",
     )
-
-    return embedding_model
+    # The response dict contains the embedding under the key "embedding"
+    return response["embedding"]

@@ -1,6 +1,6 @@
 from pypdf import PdfReader  # type: ignore
-
-PDF_PATH = "rag/data/Crop_Disease.pdf"
+import os
+PDF_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "Crop_Disease.pdf")
 
 reader = PdfReader(PDF_PATH)
 

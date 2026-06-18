@@ -1,4 +1,4 @@
-from rag.pinecone_client import index
+from rag.pinecone_client import get_index
 import os
 
 # =========================================
@@ -78,6 +78,10 @@ def retrieve_chunks(query, top_k=3):
     # SEARCH PINECONE
     # =====================================
 
+    index = get_index()
+    if index is None:
+        # Pinecone not configured; return empty results
+        return []
     results = index.query(
 
         vector=query_embedding,

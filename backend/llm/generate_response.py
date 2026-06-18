@@ -1,4 +1,4 @@
-from llm.groq_client import client # type: ignore
+from llm.groq_client import get_client # type: ignore
 
 def generate_response(query,retrieved_chunk):
 
@@ -30,7 +30,7 @@ def generate_response(query,retrieved_chunk):
 
     ANSWER:"""
         
-    response = client.chat.completions.create(
+    response = get_client().chat.completions.create(
 
     model="llama-3.1-8b-instant",
 
