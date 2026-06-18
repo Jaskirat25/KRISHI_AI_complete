@@ -3,7 +3,7 @@ import logging
 from fastapi import APIRouter, UploadFile, File, HTTPException
 import httpx
 import numpy as np
-from ..utils import preprocess_image
+from utils import preprocess_image
 
 router = APIRouter()
 
