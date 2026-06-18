@@ -46,7 +46,9 @@ async def text_chat(data: TextRequest):
             retrieved_chunks
         )
     except RuntimeError as e:
-        return {"error": str(e)}
+        # Propagate as proper HTTP 500 error with message
+        from fastapi import HTTPException
+        raise HTTPException(status_code=500, detail=str(e))
 
     # =====================================
     # RESPONSE
