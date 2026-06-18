@@ -40,10 +40,13 @@ async def text_chat(data: TextRequest):
     # GENERATE LLM RESPONSE
     # =====================================
 
-    answer = generate_response(
-        data.text,
-        retrieved_chunks
-    )
+    try:
+        answer = generate_response(
+            data.text,
+            retrieved_chunks
+        )
+    except RuntimeError as e:
+        return {"error": str(e)}
 
     # =====================================
     # RESPONSE
